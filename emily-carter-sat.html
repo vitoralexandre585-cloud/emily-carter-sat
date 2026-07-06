@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Emily Carter · SAT Preparation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────────── */
+    :root {
+      --navy:      #0A1628;
+      --sapphire:  #1D3A6B;
+      --gold:      #C8A96E;
+      --gold-lt:   #E8D5B0;
+      --offwhite:  #F7F4EF;
+      --parchment: #EDE8DF;
+      --mid:       #8A8278;
+      --text:      #1C1914;
+      --white:     #FFFFFF;
+
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Inter', system-ui, sans-serif;
+      --tight: 'Inter Tight', 'Inter', system-ui, sans-serif;
+
+      --max: 1100px;
+      --gap: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    /* ── RESET ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    /* keyboard focus, visible ring, off for mouse users */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* ── UTILS ────────────────────────────────────────────────── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--gap); }
+    .section    { padding: clamp(4rem, 8vw, 7rem) var(--gap); }
+    .eyebrow {
+      font-family: var(--tight);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .rule {
+      border: none;
+      border-top: 1px solid var(--parchment);
+      margin: 0;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 22, 40, .96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200,169,110,.15);
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gap);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -.01em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      color: rgba(255,255,255,.7);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-family: var(--tight);
+      font-size: .875rem;
+      font-weight: 600;
+      padding: .55rem 1.25rem;
+      border-radius: 4px;
+      background: var(--gold);
+      color: var(--navy);
+      transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: .9; }
+
+    /* hamburger toggle (hidden on desktop) */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .nav-toggle-bar {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    #hero {
+      background: var(--navy);
+      padding: calc(64px + clamp(4rem, 8vw, 7rem)) var(--gap) clamp(4rem, 8vw, 7rem);
+    }
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text .eyebrow { margin-bottom: 1.25rem; }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -.02em;
+    }
+    .hero-text h1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.65);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--tight);
+      font-size: .95rem;
+      font-weight: 600;
+      padding: .8rem 1.75rem;
+      border-radius: 4px;
+      background: var(--gold);
+      color: var(--navy);
+      transition: opacity .2s, transform .15s;
+    }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-ghost {
+      font-family: var(--tight);
+      font-size: .9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.6);
+      border-bottom: 1px solid rgba(255,255,255,.25);
+      padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+    /* hero stats bar */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label {
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* hero photo */
+    .hero-photo {
+      position: relative;
+    }
+    .photo-frame {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--sapphire);
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    /* initials fallback shown only when the photo fails to load */
+    .photo-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(120% 120% at 30% 20%, var(--sapphire), var(--navy) 70%);
+      color: var(--gold);
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: clamp(4rem, 12vw, 7rem);
+      letter-spacing: .04em;
+      user-select: none;
+    }
+    .photo-frame.is-fallback img { display: none; }
+    .photo-frame.is-fallback .photo-fallback { display: flex; }
+    .photo-badge {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      background: rgba(10,22,40,.92);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(200,169,110,.3);
+      border-radius: 4px;
+      padding: .9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .badge-score {
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 3px;
+      padding: .3rem .6rem;
+      font-family: var(--tight);
+      font-size: .8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-text {
+      font-size: .8rem;
+      color: rgba(255,255,255,.8);
+      line-height: 1.4;
+    }
+    .badge-text strong { color: var(--white); display: block; font-size: .85rem; }
+
+    /* school logos strip */
+    .schools-strip {
+      background: var(--navy);
+      border-top: 1px solid rgba(200,169,110,.1);
+      padding: 1.75rem var(--gap);
+    }
+    .schools-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: clamp(1.5rem, 3vw, 3rem);
+      flex-wrap: wrap;
+    }
+    .schools-label {
+      font-size: .75rem;
+      color: rgba(255,255,255,.35);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .school-name {
+      font-family: var(--serif);
+      font-size: .9rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .02em;
+    }
+
+    /* ── ABOUT ────────────────────────────────────────────────── */
+    #about {
+      background: var(--white);
+      max-width: 100%;
+    }
+    .about-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text .eyebrow { margin-bottom: 1.25rem; }
+    .about-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+      margin-bottom: 1.5rem;
+      color: var(--navy);
+    }
+    .about-text p {
+      color: #4A4540;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .credentials {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .cred-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      font-size: .9rem;
+      color: #3A3530;
+    }
+    .cred-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: .55rem;
+    }
+
+    /* quote block */
+    .about-quote {
+      background: var(--offwhite);
+      border-left: 3px solid var(--gold);
+      padding: 2rem 2rem;
+      border-radius: 0 4px 4px 0;
+      margin-top: 2rem;
+    }
+    .quote-text {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.7;
+      margin-bottom: .75rem;
+    }
+    .quote-attr {
+      font-size: .8rem;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* ── RESULTS (TRANSCRIPT STYLE) ───────────────────────────── */
+    #results {
+      background: var(--offwhite);
+    }
+    .results-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .results-header { margin-bottom: 3rem; }
+    .results-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--navy);
+      letter-spacing: -.02em;
+      margin-top: .75rem;
+    }
+    .results-header p {
+      color: var(--mid);
+      margin-top: .75rem;
+      font-size: .95rem;
+    }
+
+    /* transcript card */
+    .transcript {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .transcript-header {
+      background: var(--navy);
+      padding: 1.25rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 120px 120px 120px;
+      gap: 1rem;
+      align-items: center;
+    }
+    .transcript-header span {
+      font-family: var(--tight);
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.45);
+    }
+    .th-center { text-align: center; }
+    .transcript-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 120px 120px;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.1rem 2rem;
+      border-top: 1px solid var(--parchment);
+      transition: background .15s;
+    }
+    .transcript-row:hover { background: #FDFAF6; }
+    .row-student { font-size: .95rem; font-weight: 500; color: var(--navy); }
+    .row-sub { font-size: .8rem; color: var(--mid); margin-top: .1rem; }
+    .score-cell { text-align: center; }
+    .score-before {
+      font-family: var(--tight);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #9A9288;
+    }
+    .score-after {
+      font-family: var(--tight);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .score-delta {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-family: var(--tight);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--gold);
+      padding: .2rem .55rem;
+      border-radius: 3px;
+    }
+    .transcript-footer {
+      background: var(--navy);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .tf-note {
+      font-size: .78rem;
+      color: rgba(255,255,255,.4);
+      font-style: italic;
+    }
+    .tf-avg {
+      font-family: var(--tight);
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    /* ── PROCESS ──────────────────────────────────────────────── */
+    #process {
+      background: var(--white);
+    }
+    .process-inner { max-width: var(--max); margin: 0 auto; }
+    .process-header { margin-bottom: 3.5rem; }
+    .process-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--navy);
+      letter-spacing: -.02em;
+      margin-top: .75rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      left: calc(16.666% + 1.25rem);
+      right: calc(16.666% + 1.25rem);
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold));
+      opacity: .4;
+    }
+    .step { padding-top: .5rem; }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--white);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: .75rem;
+    }
+    .step p { font-size: .9rem; color: #5A5550; line-height: 1.75; }
+
+    /* ── PRICING ──────────────────────────────────────────────── */
+    #pricing {
+      background: var(--offwhite);
+    }
+    .pricing-inner { max-width: var(--max); margin: 0 auto; }
+    .pricing-header { text-align: center; margin-bottom: 3rem; }
+    .pricing-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--navy);
+      letter-spacing: -.02em;
+      margin-top: .75rem;
+    }
+    .pricing-header p { color: var(--mid); font-size: .95rem; margin-top: .5rem; }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .plan {
+      background: var(--white);
+      border: 1px solid var(--parchment);
+      border-radius: 6px;
+      padding: 2rem;
+      position: relative;
+    }
+    .plan.featured {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--tight);
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .75rem;
+      border-radius: 20px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-family: var(--tight);
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--mid);
+      margin-bottom: 1rem;
+    }
+    .plan-price {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .plan-price sub {
+      font-size: 1rem;
+      font-family: var(--sans);
+      font-weight: 400;
+      color: var(--mid);
+      vertical-align: baseline;
+    }
+    .plan-per { font-size: .8rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .plan hr { border: none; border-top: 1px solid var(--parchment); margin: 1.25rem 0; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      font-size: .875rem;
+      color: #4A4540;
+    }
+    .plan-features li::before {
+      content: '·';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .plan-cta {
+      display: block;
+      text-align: center;
+      margin-top: 1.75rem;
+      padding: .75rem;
+      border-radius: 4px;
+      font-family: var(--tight);
+      font-size: .9rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .plan-cta.outline {
+      border: 1.5px solid var(--sapphire);
+      color: var(--sapphire);
+    }
+    .plan-cta.outline:hover { background: var(--sapphire); color: var(--white); }
+    .plan-cta.solid {
+      background: var(--navy);
+      color: var(--white);
+    }
+    .plan-cta.solid:hover { background: var(--sapphire); }
+
+    /* ── TESTIMONIALS ─────────────────────────────────────────── */
+    #testimonials {
+      background: var(--navy);
+    }
+    .testimonials-inner { max-width: var(--max); margin: 0 auto; }
+    .test-header { margin-bottom: 3rem; }
+    .test-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-top: .75rem;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(200,169,110,.12);
+      border-radius: 6px;
+      padding: 2rem;
+    }
+    .test-stars {
+      color: var(--gold);
+      font-size: 1rem;
+      letter-spacing: .15em;
+      margin-bottom: 1.25rem;
+    }
+    .test-quote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,.85);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .test-author {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 1rem;
+    }
+    .test-name {
+      font-family: var(--tight);
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .test-role {
+      font-size: .78rem;
+      color: rgba(255,255,255,.4);
+      margin-top: .15rem;
+    }
+    .test-score {
+      display: inline-block;
+      margin-top: .5rem;
+      font-family: var(--tight);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(200,169,110,.1);
+      padding: .2rem .6rem;
+      border-radius: 3px;
+    }
+
+    /* ── CTA ──────────────────────────────────────────────────── */
+    #cta {
+      background: var(--white);
+      text-align: center;
+    }
+    .cta-inner {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin: 1rem 0 1.25rem;
+    }
+    .cta-inner h2 em { color: var(--gold); font-style: normal; }
+    .cta-inner p { color: var(--mid); font-size: .95rem; margin-bottom: 2.5rem; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-navy {
+      font-family: var(--tight);
+      font-size: .95rem;
+      font-weight: 600;
+      padding: .85rem 2rem;
+      border-radius: 4px;
+      background: var(--navy);
+      color: var(--white);
+      transition: background .2s;
+    }
+    .btn-navy:hover { background: var(--sapphire); }
+    .cta-note {
+      margin-top: 1.25rem;
+      font-size: .8rem;
+      color: var(--mid);
+    }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(200,169,110,.1);
+      padding: 2.5rem var(--gap);
+    }
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: rgba(255,255,255,.6);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: .8rem;
+      color: rgba(255,255,255,.35);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { display: none; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .steps { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .plans { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      /* mobile menu */
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(10, 22, 40, .98);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(200,169,110,.15);
+        padding: .5rem var(--gap) 1.25rem;
+        transform: translateY(-8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .2s ease, transform .2s ease, visibility .2s;
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      .nav-links li { border-top: 1px solid rgba(255,255,255,.07); }
+      .nav-links li:first-child { border-top: none; }
+      .nav-links a {
+        display: block;
+        padding: .9rem .25rem;
+        font-size: 1rem;
+      }
+      .nav-links .nav-cta {
+        margin-top: .85rem;
+        text-align: center;
+        padding: .8rem 1.25rem;
+        font-size: .95rem;
+      }
+      .transcript-header,
+      .transcript-row {
+        grid-template-columns: 1fr 80px 80px 80px;
+        font-size: .8rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .transcript-header,
+      .transcript-row { grid-template-columns: 1fr 70px 70px; }
+      .transcript-header span:last-child,
+      .transcript-row > *:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Dr. <span>Emily Carter</span></a>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#cta" class="nav-cta">Book Free Consult</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">SAT Tutoring · New York City</p>
+      <h1>
+        The SAT is coachable.<br />
+        Your child just needs<br />
+        <em>the right approach.</em>
+      </h1>
+      <p>
+        I'm Emily Carter, a Columbia PhD who has spent ten years teaching
+        students in New York to read what the test is actually asking. My
+        students gain 320 points on average. Yours can too.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Book a Free Consultation</a>
+        <a href="#results" class="btn-ghost">See real results ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">+320</span>
+          <span class="stat-label">Average score gain</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Students tutored</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">94%</span>
+          <span class="stat-label">Accepted top-25 universities</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <!-- Replace src with an actual photo of Dr. Carter. The EC monogram
+             below shows automatically if the image fails to load. -->
+        <img
+          src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80"
+          alt="Dr. Emily Carter, SAT tutor in New York City"
+          loading="eager"
+          onerror="this.closest('.photo-frame').classList.add('is-fallback')"
+        />
+        <div class="photo-fallback" aria-hidden="true">EC</div>
+      </div>
+      <div class="photo-badge">
+        <span class="badge-score">+390 pts</span>
+        <div class="badge-text">
+          <strong>Alex M., 2024</strong>
+          1080 → 1470 · Accepted to Cornell
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- schools strip -->
+<div class="schools-strip">
+  <div class="schools-inner">
+    <span class="schools-label">Students accepted to</span>
+    <span class="school-name">Harvard</span>
+    <span class="school-name">Princeton</span>
+    <span class="school-name">Columbia</span>
+    <span class="school-name">Yale</span>
+    <span class="school-name">NYU</span>
+    <span class="school-name">Georgetown</span>
+    <span class="school-name">Duke</span>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section id="about" class="section" style="background: var(--white);">
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="eyebrow">About Dr. Carter</p>
+      <h2>I've been on both<br />sides of the test.</h2>
+      <p>
+        I took the SAT twice. The first time I walked in prepared and still
+        landed in the middle of the pack. The second time, once I understood
+        what the questions were really testing, I scored near-perfect. That
+        gap is exactly what I teach students to close.
+      </p>
+      <p>
+        Most tutoring drills content. I work on the thing underneath it: how
+        your child reads a question, and where their thinking gets tripped up.
+        Fix that, and the score follows.
+      </p>
+      <div class="credentials">
+        <div class="cred-item">
+          <span class="cred-dot"></span>
+          PhD in Education, Columbia University (2015)
+        </div>
+        <div class="cred-item">
+          <span class="cred-dot"></span>
+          Former Director of Academic Enrichment, Horace Mann School
+        </div>
+        <div class="cred-item">
+          <span class="cred-dot"></span>
+          Perfect 800 on SAT Evidence-Based Reading & Writing
+        </div>
+        <div class="cred-item">
+          <span class="cred-dot"></span>
+          10+ years tutoring in New York City
+        </div>
+      </div>
+    </div>
+
+    <div class="about-quote-col">
+      <div class="about-quote">
+        <p class="quote-text">
+          "Emily doesn't just teach the test, she teaches students how to
+          trust their own thinking. My daughter went from panic attacks before
+          exams to walking out of the SAT feeling calm and confident."
+        </p>
+        <p class="quote-attr">Sarah K., parent · 2024</p>
+      </div>
+      <div class="about-quote" style="margin-top: 1.25rem;">
+        <p class="quote-text">
+          "After three sessions I realized I'd been approaching every reading
+          passage completely wrong. Emily saw it immediately."
+        </p>
+        <p class="quote-attr">James T., student · 1390 final score</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<!-- ─── RESULTS ───────────────────────────────────────────────── -->
+<section id="results" class="section">
+  <div class="results-inner">
+    <div class="results-header">
+      <p class="eyebrow">Student Results</p>
+      <h2>The transcript doesn't lie.</h2>
+      <p>A sample of recent results, verified and reported by families.</p>
+    </div>
+
+    <div class="transcript">
+      <div class="transcript-header">
+        <span>Student</span>
+        <span class="th-center">Before</span>
+        <span class="th-center">After</span>
+        <span class="th-center">Gain</span>
+      </div>
+
+      <div class="transcript-row">
+        <div>
+          <div class="row-student">Mia L.</div>
+          <div class="row-sub">12 sessions · 2024 · Accepted: Georgetown</div>
+        </div>
+        <div class="score-cell"><span class="score-before">1090</span></div>
+        <div class="score-cell"><span class="score-after">1420</span></div>
+        <div class="score-cell"><span class="score-delta">+330</span></div>
+      </div>
+
+      <div class="transcript-row">
+        <div>
+          <div class="row-student">Daniel R.</div>
+          <div class="row-sub">8 sessions · 2024 · Accepted: NYU Stern</div>
+        </div>
+        <div class="score-cell"><span class="score-before">1150</span></div>
+        <div class="score-cell"><span class="score-after">1450</span></div>
+        <div class="score-cell"><span class="score-delta">+300</span></div>
+      </div>
+
+      <div class="transcript-row">
+        <div>
+          <div class="row-student">Sofia M.</div>
+          <div class="row-sub">16 sessions · 2023 · Accepted: Princeton</div>
+        </div>
+        <div class="score-cell"><span class="score-before">1180</span></div>
+        <div class="score-cell"><span class="score-after">1560</span></div>
+        <div class="score-cell"><span class="score-delta">+380</span></div>
+      </div>
+
+      <div class="transcript-row">
+        <div>
+          <div class="row-student">Alex M.</div>
+          <div class="row-sub">14 sessions · 2023 · Accepted: Cornell</div>
+        </div>
+        <div class="score-cell"><span class="score-before">1080</span></div>
+        <div class="score-cell"><span class="score-after">1470</span></div>
+        <div class="score-cell"><span class="score-delta">+390</span></div>
+      </div>
+
+      <div class="transcript-row">
+        <div>
+          <div class="row-student">Priya K.</div>
+          <div class="row-sub">10 sessions · 2023 · Accepted: Duke</div>
+        </div>
+        <div class="score-cell"><span class="score-before">1220</span></div>
+        <div class="score-cell"><span class="score-after">1500</span></div>
+        <div class="score-cell"><span class="score-delta">+280</span></div>
+      </div>
+
+      <div class="transcript-footer">
+        <span class="tf-note">All results reported by families. Scores from official College Board records.</span>
+        <span class="tf-avg">Average gain across all students: +320 points</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ───────────────────────────────────────────────── -->
+<section id="process" class="section" style="background: var(--white);">
+  <div class="process-inner">
+    <div class="process-header">
+      <p class="eyebrow">How It Works</p>
+      <h2>Three steps to test day.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Diagnostic session</h3>
+        <p>
+          We start with a full SAT under real timed conditions. I'm not
+          chasing the number, I'm watching where your child slows down,
+          second-guesses, or misreads. That's what the score alone can't
+          show you.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Targeted sessions</h3>
+        <p>
+          Each session addresses specific patterns identified in the diagnostic.
+          I send a short written note after every session so parents know exactly
+          what we worked on and what to practice before the next meeting.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Test-day readiness</h3>
+        <p>
+          The final sessions are about rhythm, pacing, and confidence, not
+          cramming. Students who've worked with me consistently say test day
+          felt familiar, not frightening.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ───────────────────────────────────────────────── -->
+<section id="pricing" class="section">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <p class="eyebrow">Packages</p>
+      <h2>Transparent pricing.</h2>
+      <p>All packages include a free 30-minute consultation before you commit.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-name">Focused</div>
+        <div class="plan-price">$220<sub>/hr</sub></div>
+        <div class="plan-per">Pay as you go</div>
+        <hr />
+        <ul class="plan-features">
+          <li>Single sessions, no commitment</li>
+          <li>Post-session written notes</li>
+          <li>Diagnostic assessment included</li>
+          <li>Best for: specific weak areas</li>
+        </ul>
+        <a href="#cta" class="plan-cta outline">Get started</a>
+      </div>
+
+      <div class="plan featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Intensive</div>
+        <div class="plan-price">$1,850</div>
+        <div class="plan-per">10-session package</div>
+        <hr />
+        <ul class="plan-features">
+          <li>Structured 10-session program</li>
+          <li>Full diagnostic assessment</li>
+          <li>Custom study plan between sessions</li>
+          <li>Parent progress updates</li>
+          <li>Priority scheduling</li>
+        </ul>
+        <a href="#cta" class="plan-cta solid">Book a consult</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Comprehensive</div>
+        <div class="plan-price">$3,200</div>
+        <div class="plan-per">18-session program</div>
+        <hr />
+        <ul class="plan-features">
+          <li>Full 18-session structured program</li>
+          <li>Two full diagnostic assessments</li>
+          <li>Monthly parent meetings</li>
+          <li>Essay guidance included</li>
+          <li>Unlimited email support</li>
+          <li>Best for: students starting 6+ months out</li>
+        </ul>
+        <a href="#cta" class="plan-cta outline">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────────────── -->
+<section id="testimonials" class="section">
+  <div class="testimonials-inner">
+    <div class="test-header">
+      <p class="eyebrow" style="color: var(--gold-lt);">What families say</p>
+      <h2>From the parents.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">
+          "We tried two other tutors before finding Emily. The difference was
+          immediate. She figured out in the first session that our son was
+          spending too much time on questions he'd already answered incorrectly
+          in his head. That insight alone changed everything."
+        </p>
+        <div class="test-author">
+          <div class="test-name">Jennifer & Mark T.</div>
+          <div class="test-role">Parents of Daniel, Class of 2024</div>
+          <div class="test-score">1150 → 1450</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">
+          "My daughter was convinced she 'wasn't a math person.' Emily spent
+          three sessions just on how she was reading word problems, not the
+          math itself. She got a 740 on math. She still can't quite believe it."
+        </p>
+        <div class="test-author">
+          <div class="test-name">Christine L.</div>
+          <div class="test-role">Parent of Mia, Class of 2024</div>
+          <div class="test-score">1090 → 1420</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">
+          "Emily has a gift for making students feel smart, not tutored.
+          My son looked forward to their sessions, which is something I
+          never expected to say about SAT prep. He went from dreading
+          the test to feeling genuinely ready."
+        </p>
+        <div class="test-author">
+          <div class="test-name">Robert A.</div>
+          <div class="test-role">Parent of Alex, Class of 2023</div>
+          <div class="test-score">1080 → 1470</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ──────────────────────────────────────────────────── -->
+<section id="cta" class="section">
+  <div class="cta-inner">
+    <p class="eyebrow">Let's talk</p>
+    <h2>A better score is <em>within reach.</em></h2>
+    <p>
+      Every student I meet has more room than they think. The first
+      conversation is free and runs about 30 minutes, no obligation, just
+      an honest read on where your child stands and what's realistic.
+    </p>
+    <div class="cta-actions">
+      <a href="https://calendly.com" class="btn-primary" target="_blank">Book a Free Consultation</a>
+      <a href="mailto:emily@dremilycarter.com" class="btn-navy">Send an email</a>
+    </div>
+    <p class="cta-note">No obligation. No sales pitch. Just a conversation about your child.</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Dr. <span>Emily Carter</span> · SAT Preparation</div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="mailto:emily@dremilycarter.com">Contact</a></li>
+    </ul>
+    <div style="font-size:.75rem; color: rgba(255,255,255,.2);">© 2024 Dr. Emily Carter. New York, NY.</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('nav-toggle');
+    var menu = document.getElementById('nav-menu');
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      menu.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    toggle.addEventListener('click', function () {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // close after tapping a link
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    // reset when resizing up to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900) setOpen(false);
+    });
+  })();
+</script>
+
+</body>
+</html>
